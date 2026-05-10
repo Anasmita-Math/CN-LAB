@@ -7,12 +7,10 @@
 #include <sys/types.h>
 #include <arpa/inet.h>
 
-#define MAXLINE 100
-#define SERV_PORT 5777
 
 int main() {
 
-    char sendline[MAXLINE], revline[MAXLINE];
+    char sendline[100], revline[100];
 
     int sockfd;
 
@@ -28,7 +26,7 @@ int main() {
     bzero(&servaddr, sizeof(servaddr));
 
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(SERV_PORT);
+    servaddr.sin_port = 5777;
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     if(connect(sockfd,
@@ -49,7 +47,7 @@ int main() {
 
         write(sockfd, sendline, strlen(sendline) + 1);
 
-        read(sockfd, revline, MAXLINE);
+        read(sockfd, revline, 100);
 
         printf("\nReverse string is : %s\n", revline);
     }

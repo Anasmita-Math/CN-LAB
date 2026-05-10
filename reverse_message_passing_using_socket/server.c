@@ -7,8 +7,6 @@
 #include <sys/types.h>
 #include <arpa/inet.h>
 
-#define MAXLINE 100
-#define SERV_PORT 5777
 
 int main() {
 
@@ -16,7 +14,7 @@ int main() {
 
     ssize_t n;
 
-    char line[MAXLINE], revline[MAXLINE];
+    char line[100], revline[100];
 
     int listenfd, connfd;
 
@@ -34,8 +32,8 @@ int main() {
     bzero(&servaddr, sizeof(servaddr));
 
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(SERV_PORT);
-    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_port = 5777;
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     bind(listenfd,
            (struct sockaddr *)&servaddr,
@@ -53,7 +51,7 @@ int main() {
 
         printf("\nClient connected\n");
 
-        while((n = read(connfd, line, MAXLINE)) > 0){
+        while((n = read(connfd, line, 100)) > 0){
 
             line[n] = '\0';
 

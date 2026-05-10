@@ -12,21 +12,19 @@ int main() {
     int serv_sockfd, cli_sockfd;
     int serv_len, cli_len;
 
-    struct sockaddr_in serv_address, cli_addr;
+    struct sockaddr_in serv_addr, cli_addr;
 
     char a[100], b[100];
 
     serv_sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-    serv_address.sin_family = AF_INET;
-    serv_address.sin_port = 9001;
-    serv_address.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = 9001;
+    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    serv_len = sizeof(serv_address);
+    serv_len = sizeof(serv_addr);
 
-    bind(serv_sockfd,
-         (struct sockaddr *)&serv_address,
-         serv_len);
+    bind(serv_sockfd,(struct sockaddr *)&serv_addr,serv_len);
 
     listen(serv_sockfd, 5);
 
@@ -34,9 +32,7 @@ int main() {
 
     cli_len = sizeof(cli_addr);
 
-    cli_sockfd = accept(serv_sockfd,
-                        (struct sockaddr *)&cli_addr,
-                        &cli_len);
+    cli_sockfd = accept(serv_sockfd,(struct sockaddr *)&cli_addr,&cli_len);
 
     while (1) {
 

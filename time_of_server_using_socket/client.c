@@ -31,6 +31,6 @@ int main() {
     read(sockfd, msg1, sizeof(msg1));
     printf("\n Time of server is :: ");
     puts(msg1);
-
+    close(sockfd);
     return 0;
 }

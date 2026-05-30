@@ -25,7 +25,8 @@ int main() {
     }
 
     printf("Enter message: ");
-    gets(name);
+    scanf("%[^\n]", name);
+    getchar();
     write(sockfd, name, sizeof(ser)); 
 
     close(sockfd);

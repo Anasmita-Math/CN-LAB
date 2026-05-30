@@ -8,28 +8,30 @@
 #include <stdlib.h>
 
 int main() {
-    int sockfd, serv_len;
+    int s_sd, serv_len;
     char sour[200], dest[200];
     struct sockaddr_in serv;
 
-    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    s_sd = socket(AF_INET, SOCK_DGRAM, 0);
+    serv_len = sizeof(serv);
     serv.sin_family = AF_INET;
     serv.sin_port = 8002;
     serv.sin_addr.s_addr = inet_addr("127.0.0.1");
-    serv_len = sizeof(serv);
 
-    bind(sockfd, (struct sockaddr *)&serv, serv_len);
+    bind(s_sd, (struct sockaddr *)&serv, serv_len);
     printf("the server is waiting .... \n");
 
     while (1) {
-        recvfrom(sockfd, &sour, sizeof(sour), 0, (struct sockaddr *)&serv, &serv_len);
+        recvfrom(s_sd, &sour, sizeof(sour), 0, (struct sockaddr *)&serv, &serv_len);
         printf("\nthe message from client is :%s \n", sour);
 
         printf("\nEnter the message for client : \n");
-        getchar();
+        
         scanf("%[^\n]s", dest);
-        sendto(sockfd, &dest, sizeof(dest), 0, (struct sockaddr *)&serv, serv_len);
+        getchar();
+        
+        sendto(s_sd, &dest, sizeof(dest), 0, (struct sockaddr *)&serv, serv_len);
     }
-    close(sockfd);
+    close(s_sd);
     return 0;
 }

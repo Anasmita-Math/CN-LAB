@@ -7,8 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-//msg2 from client
-//msg1 from server
 int main() {
     int server_sockfd, client_sockfd;
     int server_len, client_len;
@@ -30,7 +28,6 @@ int main() {
         client_sockfd = accept(server_sockfd, (struct sockaddr *)&client_address, &client_len);
 
         read(client_sockfd, msg2, sizeof(msg2));
-        printf("\nMessage from client is:: ");
         puts(msg2);
 
         t = time(NULL);

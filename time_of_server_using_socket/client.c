@@ -26,11 +26,16 @@ int main() {
     }
 
     printf("Enter :: ");
-    gets(msg2);
+    // gets(msg2);
+    
+    scanf("%[^\n]s",msg2);
+    getchar();
+    
     write(sockfd, msg2, sizeof(msg2));
+    
     read(sockfd, msg1, sizeof(msg1));
     printf("\n Time of server is :: ");
     puts(msg1);
-    close(sockfd);
+
     return 0;
 }

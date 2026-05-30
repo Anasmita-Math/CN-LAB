@@ -31,7 +31,8 @@ int main() {
         puts(a);
 
         printf("Enter a msg for client : ");
-        gets(b);
+        scanf("%[^\n]", b);
+        getchar();
         write(cli_sockfd, b, sizeof(b));
         close(cli_sockfd);
     }

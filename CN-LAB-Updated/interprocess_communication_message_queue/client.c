@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/msg.h>
+#include <sys/ipc.h>
+#include <sys/types.h>
+#include <string.h>
+
+int main() {
+    struct msgbuf {
+        long mtype;
+        char mtext[100];
+    } send, recv;
+    
+    int qid, len;
+    qid = msgget((key_t)125, IPC_CREAT | 0666);
+    
+    if (qid < 0) {
+        perror("msgget failed");
+        exit(1);
+    }
+    
+    if (msgrcv(qid, &recv, 100, 1, 0) == -1) {
+        perror("msgsend failed"); 
+        exit(1);
+    }
+    
+    printf("msg from tty-1 is : %s\n", recv.mtext);
+
+    printf("\nEnter message for TTY-1 :: ");
+    scanf("%[^\n]s", send.mtext);
+    getchar();
+    send.mtype = 2;
+    len = strlen(send.mtext);
+    
+    if (msgsnd(qid, &send, len, 0) == -1) {
+        perror("message failed");
+        exit(0);
+    }
+    
+}

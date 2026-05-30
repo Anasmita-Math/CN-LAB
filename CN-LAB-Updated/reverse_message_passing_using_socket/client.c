@@ -29,7 +29,9 @@ int main() {
     servaddr.sin_port = 5777;
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    if(connect(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr)) < 0){
+    if(connect(sockfd,
+              (struct sockaddr *)&servaddr,
+              sizeof(servaddr)) < 0){
 
         printf("Connection failed\n");
         exit(1);
